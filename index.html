@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pendaftaran Lomba – HUT RS Premier Jatinegara ke-37</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #C8102E;
+    --red-dark: #9B0B22;
+    --gold: #F0B429;
+    --white: #FFFFFF;
+    --off-white: #FDF8F0;
+    --dark: #1A0A0E;
+    --gray: #6B7280;
+    --light-gray: #F3F4F6;
+    --border: #E5E7EB;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: var(--off-white);
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  /* Background decoration */
+  body::before {
+    content: '';
+    position: fixed;
+    top: -200px; right: -200px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(200,16,46,0.08) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  body::after {
+    content: '';
+    position: fixed;
+    bottom: -150px; left: -150px;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(240,180,41,0.07) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 40px 20px 80px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    margin-bottom: 40px;
+    animation: fadeDown 0.7s ease both;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--red);
+    color: var(--white);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 999px;
+    margin-bottom: 20px;
+  }
+
+  .badge::before {
+    content: '★';
+    color: var(--gold);
+    font-size: 12px;
+  }
+  .badge::after {
+    content: '★';
+    color: var(--gold);
+    font-size: 12px;
+  }
+
+  .logo-area {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+  }
+
+  .logo-wrap {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    animation: logoEntry 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  /* Glowing pulse ring behind logo */
+  .logo-wrap::before {
+    content: '';
+    position: absolute;
+    inset: -18px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(200,16,46,0.12) 0%, transparent 70%);
+    animation: pulseRing 2.4s ease-in-out infinite;
+  }
+
+  /* Spinning gold arc */
+  .logo-wrap::after {
+    content: '';
+    position: absolute;
+    inset: -10px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    border-top-color: var(--gold);
+    border-right-color: rgba(240,180,41,0.3);
+    animation: spinArc 3s linear infinite;
+  }
+
+  .logo-img {
+    height: 70px;
+    width: auto;
+    object-fit: contain;
+    position: relative;
+    z-index: 1;
+    filter: drop-shadow(0 6px 18px rgba(200,16,46,0.25));
+    animation: logoFloat 3s ease-in-out infinite 1s;
+  }
+
+  .subtitle {
+    font-size: 14px;
+    color: var(--gray);
+    margin-top: 10px;
+    font-weight: 500;
+  }
+
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 24px 0;
+  }
+  .divider::before, .divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  .divider-icon {
+    color: var(--gold);
+    font-size: 16px;
+  }
+
+  /* Card */
+  .card {
+    background: white;
+    border-radius: 20px;
+    padding: 36px 32px;
+    box-shadow: 0 4px 40px rgba(0,0,0,0.07);
+    border: 1px solid rgba(200,16,46,0.08);
+    animation: fadeUp 0.7s ease 0.2s both;
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 18px;
+    letter-spacing: 2px;
+    color: var(--red);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 2px;
+    background: linear-gradient(90deg, var(--red), transparent);
+  }
+
+  /* Form fields */
+  .field {
+    margin-bottom: 20px;
+  }
+
+  label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--dark);
+    margin-bottom: 6px;
+    letter-spacing: 0.3px;
+  }
+
+  label span.req {
+    color: var(--red);
+    margin-left: 2px;
+  }
+
+  input[type="text"],
+  input[type="tel"],
+  select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14px;
+    color: var(--dark);
+    background: var(--light-gray);
+    transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+    outline: none;
+    appearance: none;
+  }
+
+  select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236B7280' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 40px;
+    cursor: pointer;
+  }
+
+  input:focus, select:focus {
+    border-color: var(--red);
+    background: white;
+    box-shadow: 0 0 0 3px rgba(200,16,46,0.1);
+  }
+
+  input::placeholder { color: #AAAAAA; }
+
+  /* Categories */
+  .categories-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--dark);
+    margin-bottom: 12px;
+    letter-spacing: 0.3px;
+  }
+  .categories-title span.req { color: var(--red); margin-left: 2px; }
+
+  .categories-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .cat-option {
+    position: relative;
+  }
+
+  .cat-option input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0; height: 0;
+  }
+
+  .cat-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    color: #374151;
+    background: var(--light-gray);
+    transition: all 0.2s;
+    user-select: none;
+  }
+
+  .cat-label .icon {
+    font-size: 18px;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  .cat-option input:checked + .cat-label {
+    background: #FFF0F3;
+    border-color: var(--red);
+    color: var(--red-dark);
+    font-weight: 600;
+    box-shadow: 0 0 0 3px rgba(200,16,46,0.08);
+  }
+
+  .cat-label:hover {
+    border-color: #FFAAB8;
+    background: #FFF7F8;
+  }
+
+  .checkmark {
+    width: 18px; height: 18px;
+    border: 1.5px solid var(--border);
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    background: white;
+  }
+
+  .cat-option input:checked + .cat-label .checkmark {
+    background: var(--red);
+    border-color: var(--red);
+  }
+
+  .cat-option input:checked + .cat-label .checkmark::after {
+    content: '●';
+    color: white;
+    font-size: 8px;
+  }
+
+  /* Submit button */
+  .btn-submit {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, var(--red), var(--red-dark));
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-family: 'Bebas Neue', cursive;
+    font-size: 20px;
+    letter-spacing: 3px;
+    cursor: pointer;
+    margin-top: 28px;
+    box-shadow: 0 8px 24px rgba(200,16,46,0.35);
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-submit::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+    transition: left 0.4s;
+  }
+
+  .btn-submit:hover::before { left: 100%; }
+  .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(200,16,46,0.45); }
+  .btn-submit:active { transform: translateY(0); }
+  .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+  /* Toast */
+  .toast {
+    position: fixed;
+    top: 24px; left: 50%;
+    transform: translateX(-50%) translateY(-80px);
+    background: #1A1A1A;
+    color: white;
+    padding: 14px 24px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+    z-index: 1000;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    max-width: 90vw;
+    text-align: center;
+  }
+
+  .toast.show { transform: translateX(-50%) translateY(0); }
+  .toast.success { background: linear-gradient(135deg, #059669, #065f46); }
+  .toast.error { background: linear-gradient(135deg, var(--red), var(--red-dark)); }
+
+  /* Overlay loading */
+  .overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(255,255,255,0.7);
+    backdrop-filter: blur(4px);
+    z-index: 999;
+    align-items: center;
+    justify-content: center;
+  }
+  .overlay.show { display: flex; }
+  .spinner {
+    width: 48px; height: 48px;
+    border: 4px solid rgba(200,16,46,0.2);
+    border-top-color: var(--red);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    margin-top: 32px;
+    font-size: 12px;
+    color: #9CA3AF;
+    animation: fadeUp 0.7s ease 0.4s both;
+  }
+
+  .footer strong { color: var(--red); }
+
+  /* Animations */
+  @keyframes logoEntry {
+    from { opacity: 0; transform: scale(0.6) translateY(-10px); }
+    to   { opacity: 1; transform: scale(1) translateY(0); }
+  }
+  @keyframes logoFloat {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(-6px); }
+  }
+  @keyframes pulseRing {
+    0%, 100% { transform: scale(1); opacity: 0.8; }
+    50%       { transform: scale(1.15); opacity: 0.3; }
+  }
+  @keyframes spinArc {
+    to { transform: rotate(360deg); }
+  }
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes bounceIn {
+    0%   { transform: scale(0.5); opacity: 0; }
+    70%  { transform: scale(1.15); }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  /* Error state */
+  .field-error {
+    font-size: 12px;
+    color: var(--red);
+    margin-top: 4px;
+    display: none;
+  }
+  .field.has-error input,
+  .field.has-error select {
+    border-color: var(--red);
+    background: #FFF0F3;
+  }
+  .field.has-error .field-error { display: block; }
+
+  @media (max-width: 480px) {
+    .card { padding: 24px 18px; }
+    .categories-grid { grid-template-columns: 1fr; }
+    h1 { font-size: 36px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="overlay" id="overlay">
+  <div class="spinner"></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="badge">HUT ke-37</div>
+    <div class="logo-area">
+      <div class="logo-wrap">
+        <img src="https://www.rspremierjatinegara.com/assets/source/images/prod/jatinegara/image/logo-rs-premier-jatinegara-150x60.png" alt="RS Premier Jatinegara" class="logo-img">
+      </div>
+    </div>
+    <p class="subtitle">🏆 Formulir Pendaftaran Lomba Karyawan &amp; Keluarga Besar</p>
+    <div class="divider"><span class="divider-icon">✦</span></div>
+  </div>
+
+  <!-- Form Card -->
+  <div class="card">
+    <form id="regForm" novalidate>
+
+      <!-- Data Diri -->
+      <div class="section-title">Data Peserta</div>
+
+      <div class="field" id="field-nama">
+        <label for="nama">Nama Lengkap <span class="req">*</span></label>
+        <input type="text" id="nama" name="nama" placeholder="Masukkan nama lengkap Anda" autocomplete="name">
+        <div class="field-error">Nama tidak boleh kosong</div>
+      </div>
+
+      <div class="field" id="field-unit">
+        <label for="unit">Unit / Departemen <span class="req">*</span></label>
+        <select id="unit" name="unit">
+          <option value="" disabled selected>— Pilih Unit Anda —</option>
+          <option>Account Receivable</option>
+          <option>Accounting</option>
+          <option>Angiography</option>
+          <option>Biomedical Engineering</option>
+          <option>Cardiac Ward</option>
+          <option>Clinical Instructor</option>
+          <option>Concierge</option>
+          <option>Customer Service</option>
+          <option>Emergency</option>
+          <option>Endoscopy</option>
+          <option>Food &amp; Beverage</option>
+          <option>General Maintenance</option>
+          <option>General Practitioner</option>
+          <option>General Services</option>
+          <option>HCU</option>
+          <option>Hemodialisa</option>
+          <option>Human Resources</option>
+          <option>ICU</option>
+          <option>Information Technology</option>
+          <option>Inpatient Admission</option>
+          <option>Inpatient Cashier</option>
+          <option>Laboratory &amp; Blood Bank</option>
+          <option>Management</option>
+          <option>Marketing</option>
+          <option>Medical And Ancillary Service</option>
+          <option>Medical Record</option>
+          <option>Medical Rehabilitation</option>
+          <option>Nursing</option>
+          <option>Nutrition</option>
+          <option>Obgyn</option>
+          <option>Operating Theatre</option>
+          <option>Operator</option>
+          <option>Outpatient</option>
+          <option>Outpatient Admission</option>
+          <option>Outpatient Cashier</option>
+          <option>Perinatologi</option>
+          <option>Pharmacy</option>
+          <option>Picu-Nicu</option>
+          <option>POLI-MCU</option>
+          <option>Purchasing</option>
+          <option>Quality</option>
+          <option>Radiology</option>
+          <option>Stroke Unit</option>
+          <option>Ward Level 2A</option>
+          <option>Ward Level 3</option>
+          <option>Ward Level 5</option>
+          <option>Ward Level 6</option>
+          <option>Ward Level 7</option>
+          <option>Ward Level 8</option>
+          <option>Warehouse</option>
+          <option>Vendor</option>
+        </select>
+        <div class="field-error">Pilih unit Anda</div>
+      </div>
+
+      <div class="field" id="field-wa">
+        <label for="wa">No. WhatsApp <span class="req">*</span></label>
+        <input type="tel" id="wa" name="wa" placeholder="Contoh: 08123456789" autocomplete="tel">
+        <div class="field-error">No. WhatsApp tidak valid</div>
+      </div>
+
+      <!-- Pilih Cabang Lomba -->
+      <div style="margin-top: 28px; margin-bottom: 8px;">
+        <div class="section-title">Cabang Lomba</div>
+        <p class="categories-title">Pilih <strong>1 cabang</strong> lomba yang diikuti <span class="req">*</span></p>
+        <div class="categories-grid" id="categories">
+
+          <div class="cat-option">
+            <input type="radio" id="cat1" name="lomba" value="Badminton Ganda Putra">
+            <label class="cat-label" for="cat1">
+              <span class="icon">🏸</span>
+              <span>Badminton<br>Ganda Putra</span>
+              <span class="checkmark"></span>
+            </label>
+          </div>
+
+          <div class="cat-option">
+            <input type="radio" id="cat2" name="lomba" value="Badminton Ganda Putri">
+            <label class="cat-label" for="cat2">
+              <span class="icon">🏸</span>
+              <span>Badminton<br>Ganda Putri</span>
+              <span class="checkmark"></span>
+            </label>
+          </div>
+
+          <div class="cat-option">
+            <input type="radio" id="cat3" name="lomba" value="Tenis Meja Putra">
+            <label class="cat-label" for="cat3">
+              <span class="icon">🏓</span>
+              <span>Tenis Meja<br>Putra</span>
+              <span class="checkmark"></span>
+            </label>
+          </div>
+
+          <div class="cat-option">
+            <input type="radio" id="cat4" name="lomba" value="Tenis Meja Putri">
+            <label class="cat-label" for="cat4">
+              <span class="icon">🏓</span>
+              <span>Tenis Meja<br>Putri</span>
+              <span class="checkmark"></span>
+            </label>
+          </div>
+
+          <div class="cat-option">
+            <input type="radio" id="cat5" name="lomba" value="Mobile Legend">
+            <label class="cat-label" for="cat5">
+              <span class="icon">🎮</span>
+              <span>Mobile<br>Legend</span>
+              <span class="checkmark"></span>
+            </label>
+          </div>
+
+          <div class="cat-option">
+            <input type="radio" id="cat6" name="lomba" value="Jatty Voice">
+            <label class="cat-label" for="cat6">
+              <span class="icon">🎤</span>
+              <span>Jatty<br>Voice</span>
+              <span class="checkmark"></span>
+            </label>
+          </div>
+
+        </div>
+        <div class="field-error" id="cat-error" style="display:none; margin-top:8px;">Pilih 1 cabang lomba terlebih dahulu</div>
+      </div>
+
+      <button type="submit" class="btn-submit" id="btnSubmit">
+        Daftarkan Saya →
+      </button>
+
+    </form>
+  </div>
+
+  <!-- Success Screen -->
+  <div id="successScreen" style="display:none;" class="card" style="text-align:center;">
+    <div style="text-align:center; padding: 20px 0;">
+      <div style="font-size: 64px; margin-bottom: 16px; animation: bounceIn 0.5s ease;">🏆</div>
+      <div class="section-title" style="justify-content:center; font-size:22px;">Pendaftaran Berhasil!</div>
+      <div id="successDetail" style="font-size:14px; color:#6B7280; margin: 12px 0 28px; line-height:1.8;"></div>
+      <div style="background:#FFF7F8; border:1.5px solid #FFCCD4; border-radius:12px; padding:16px; margin-bottom:24px;">
+        <p style="font-size:13px; color:#9B0B22; font-weight:600;">Ingin daftar cabang lomba lain?</p>
+        <p style="font-size:12px; color:#6B7280; margin-top:4px;">Nama, unit, dan WA sudah terisi otomatis</p>
+      </div>
+      <button id="btnDaftarLagi" class="btn-submit" style="margin-top:0;">
+        + Daftar Cabang Lain
+      </button>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>🏥 <strong>RS Premier Jatinegara</strong> – HUT ke-37</p>
+    <p style="margin-top:6px;">Data Anda aman &amp; hanya digunakan untuk keperluan pendaftaran lomba.</p>
+    <p style="margin-top:4px; font-size:11px; color:#9CA3AF;">© 2025 RS Premier Jatinegara</p>
+  </div>
+
+</div>
+
+<script>
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyI7S1FLQExb1GpcVfLP4toEnlIaJ9EQKcbjDYO0LVTvwYu125TT4owbxYiTuYrPWKH/exec';
+
+  // ----- VALIDATION -----
+  function validateForm() {
+    let valid = true;
+
+    // Nama
+    const nama = document.getElementById('nama');
+    const fieldNama = document.getElementById('field-nama');
+    if (!nama.value.trim()) {
+      fieldNama.classList.add('has-error');
+      valid = false;
+    } else {
+      fieldNama.classList.remove('has-error');
+    }
+
+    // Unit
+    const unit = document.getElementById('unit');
+    const fieldUnit = document.getElementById('field-unit');
+    if (!unit.value) {
+      fieldUnit.classList.add('has-error');
+      valid = false;
+    } else {
+      fieldUnit.classList.remove('has-error');
+    }
+
+    // WA
+    const wa = document.getElementById('wa');
+    const fieldWa = document.getElementById('field-wa');
+    const waVal = wa.value.trim().replace(/\s/g, '');
+    if (!waVal || !/^(08|628|\+628)[0-9]{7,12}$/.test(waVal)) {
+      fieldWa.classList.add('has-error');
+      valid = false;
+    } else {
+      fieldWa.classList.remove('has-error');
+    }
+
+    // Lomba
+    const checked = document.querySelector('input[name="lomba"]:checked');
+    const catError = document.getElementById('cat-error');
+    if (!checked) {
+      catError.style.display = 'block';
+      valid = false;
+    } else {
+      catError.style.display = 'none';
+    }
+
+    return valid;
+  }
+
+  // ----- TOAST -----
+  function showToast(msg, type = 'success') {
+    const t = document.getElementById('toast');
+    t.textContent = (type === 'success' ? '✅ ' : '❌ ') + msg;
+    t.className = 'toast ' + type;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 4000);
+  }
+
+  // ----- SUBMIT -----
+  const formCard = document.querySelector('.card');
+  const successScreen = document.getElementById('successScreen');
+
+  function showSuccessScreen(nama, unit, lomba) {
+    formCard.style.display = 'none';
+    successScreen.style.display = 'block';
+    successScreen.style.animation = 'fadeUp 0.5s ease both';
+    document.getElementById('successDetail').innerHTML =
+      `<strong>${nama}</strong><br>${unit}<br>📋 ${lomba}`;
+  }
+
+  function showFormAgain(nama, unit, wa) {
+    successScreen.style.display = 'none';
+    formCard.style.display = 'block';
+    // keep nama, unit, wa; only uncheck lomba
+    document.getElementById('nama').value = nama;
+    document.getElementById('unit').value = unit;
+    document.getElementById('wa').value = wa;
+    document.querySelectorAll('input[name="lomba"]').forEach(c => c.checked = false);
+    document.getElementById('cat-error').style.display = 'none';
+    window.scrollTo({top: document.querySelector('.card').offsetTop - 20, behavior: 'smooth'});
+  }
+
+  document.getElementById('btnDaftarLagi').addEventListener('click', function() {
+    const nama = document.getElementById('nama').value;
+    const unit = document.getElementById('unit').value;
+    const wa   = document.getElementById('wa').value;
+    showFormAgain(nama, unit, wa);
+  });
+
+  document.getElementById('regForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    if (!validateForm()) return;
+
+    const btn = document.getElementById('btnSubmit');
+    const overlay = document.getElementById('overlay');
+    btn.disabled = true;
+    overlay.classList.add('show');
+
+    const lombaSelected = document.querySelector('input[name="lomba"]:checked').value;
+    const namaVal = document.getElementById('nama').value.trim();
+    const unitVal = document.getElementById('unit').value;
+    const waVal   = document.getElementById('wa').value.trim();
+
+    const data = {
+      timestamp: new Date().toLocaleString('id-ID', {timeZone:'Asia/Jakarta'}),
+      nama: namaVal,
+      unit: unitVal,
+      whatsapp: waVal,
+      lomba: lombaSelected
+    };
+
+    try {
+      await fetch(SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      overlay.classList.remove('show');
+      btn.disabled = false;
+      showSuccessScreen(namaVal, unitVal, lombaSelected);
+    } catch (err) {
+      showToast('Gagal mengirim. Periksa koneksi internet Anda.', 'error');
+      btn.disabled = false;
+      overlay.classList.remove('show');
+    }
+  });
+
+  // Remove error on input
+  document.querySelectorAll('input, select').forEach(el => {
+    el.addEventListener('change', () => {
+      el.closest('.field')?.classList.remove('has-error');
+    });
+  });
+</script>
+
+<!--
+=================================================================
+  PANDUAN MENGHUBUNGKAN KE GOOGLE SHEETS
+  Spreadsheet ID: 18NZrw8sD4U13Q2mfwHMLiSqFaJfnVV8GLLi482yOlrI
+=================================================================
+
+LANGKAH 1 – Buka spreadsheet Anda:
+  https://docs.google.com/spreadsheets/d/18NZrw8sD4U13Q2mfwHMLiSqFaJfnVV8GLLi482yOlrI/edit
+
+LANGKAH 2 – Isi header di baris pertama (Sheet1):
+  A1: Timestamp
+  B1: Nama
+  C1: Unit
+  D1: WhatsApp
+  E1: Cabang Lomba
+
+LANGKAH 3 – Klik menu "Extensions" → "Apps Script"
+
+LANGKAH 4 – Hapus semua kode lama, ganti dengan ini:
+
+function doPost(e) {
+  const ss = SpreadsheetApp.openById('18NZrw8sD4U13Q2mfwHMLiSqFaJfnVV8GLLi482yOlrI');
+  const sheet = ss.getActiveSheet();
+  const data = JSON.parse(e.postData.contents);
+  sheet.appendRow([
+    data.timestamp,
+    data.nama,
+    data.unit,
+    data.whatsapp,
+    data.lomba
+  ]);
+  return ContentService.createTextOutput(JSON.stringify({status:'ok'}))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+
+LANGKAH 5 – Klik "Deploy" → "New deployment"
+  - Type: Web App
+  - Execute as: Me
+  - Who has access: Anyone
+  - Klik Deploy & izinkan akses → copy URL-nya
+
+LANGKAH 6 – Di file HTML ini, ganti baris:
+  const SCRIPT_URL = 'GANTI_DENGAN_URL_APPS_SCRIPT_ANDA';
+  dengan URL yang baru saja Anda salin.
+
+=================================================================
+-->
+</body>
+</html>
